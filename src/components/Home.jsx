@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { BsPersonCircle } from "react-icons/bs";
 import './home.css'
 export default function Home() {
@@ -8,8 +7,8 @@ export default function Home() {
                 <div className='container-fluid'>
                     <a class="navbar-brand" href="#">Musical Landmarks</a>
                     <div>
-                        <Link to="map" id="explore-btn" className='btn d-flex align-items-center gap-3'>
-                            <BsPersonCircle size={32} /> Sign in</Link>
+                        <a href="http://localhost:3000/login/federated/google" id="explore-btn" className='btn d-flex align-items-center gap-3'>
+                            <BsPersonCircle size={32} /> Sign in</a>
                     </div>
                 </div>
             </nav>
