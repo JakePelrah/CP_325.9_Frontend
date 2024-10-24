@@ -12,8 +12,7 @@ export default function LMProvider({ children }) {
         console.log(999)
         fetch('http://localhost:3000/isLoggedIn')
             .then(res => res.json())
-            .then(console.log)
-            // .then(setIsLoggedIn)
+            .then(setIsLoggedIn)
     }, [])
 
 
