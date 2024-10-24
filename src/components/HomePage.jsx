@@ -5,7 +5,7 @@ export default function Home() {
         <>
             <nav className="navbar">
                 <div className='container-fluid'>
-                    <a class="navbar-brand" href="#">Musical Landmarks</a>
+                    <a className="navbar-brand" href="#">Musical Landmarks</a>
                     <div>
                         <a href="http://localhost:3000/login/federated/google" id="explore-btn" className='btn d-flex align-items-center gap-3'>
                             <BsPersonCircle size={32} /> Sign in</a>

@@ -1,13 +1,18 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { Popover } from "bootstrap";
 import { Link } from "react-router-dom";
 import * as Icons from "react-icons/gi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
-
+import { useLM } from "./LMProvider";
+import { v4 as uuidv4 } from 'uuid'
 import './sidebar.css'
 
+
 export default function Sidebar() {
+  const { isLoggedIn, logout } = useLM()
+  const modalRef = useRef(null)
   const [categories, setCategories] = useState([
     { name: "Artist", data: ["Jon Anderson"], icon: Icons.GiMicrophone },
     { name: "Genre", data: ["Jon Anderson"], icon: Icons.GiMusicalNotes },
@@ -16,20 +21,39 @@ export default function Sidebar() {
     { name: "Venue", data: ["Jon Anderson"], icon: Icons.GiTheaterCurtains }
   ])
 
+
+  useEffect(() => {
+
+    const button = document.createElement('button')
+    button.innerText = 'Logout'
+    button.classList.add('btn')
+
+    button.onclick = logout
+    modalRef.current = new Popover(modalRef.current, {
+      html: true,
+      content: button
+    })
+  }, [])
+
+
+  function openProfileModal() {
+
+  }
+
+
+
   function Category({ name, data, Icon }) {
-
-    const renderedData = data.map(entry => <li><a href="#" class="category-link link-body-emphasis ms-5 text-decoration-none rounded">{entry}</a></li>)
-
+    const renderedData = data.map(entry => <li key={uuidv4()}><a href="#" className="category-link link-body-emphasis ms-5 text-decoration-none rounded">{entry}</a></li>)
     return (<li className="mb-2">
 
-      <button class="sidebar-btn btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+      <button className="sidebar-btn btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
         data-bs-toggle="collapse" data-bs-target={`#${name}-collapse`} aria-expanded="false">
         <Icon size={32} className="me-4" />
         <span className="text">{name}</span>
       </button>
 
-      <div class="collapse ms-4" id={`${name}-collapse`}>
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <div className="collapse ms-4" id={`${name}-collapse`}>
+        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           {renderedData}
         </ul>
       </div>
@@ -37,9 +61,9 @@ export default function Sidebar() {
   }
 
 
-  const renderCategories = categories?.map(category => <Category name={category.name} data={category.data} Icon={category.icon} />)
+  const renderCategories = categories?.map(category => <Category key={uuidv4()} name={category.name} data={category.data} Icon={category.icon} />)
 
-  return (<div id="sidebar" class="d-flex flex-column" >
+  return (<div id="sidebar" className="d-flex flex-column" >
 
     <span className="brand text-center ms-3 my-3 d-flex align-items-center">Musical Landmarks </span>
 
@@ -54,14 +78,14 @@ export default function Sidebar() {
 
     <li className="mb-2">
 
-      <button class="sidebar-btn btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+      <button className="sidebar-btn btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
         data-bs-toggle="collapse" data-bs-target={`#${name}-collapse`} aria-expanded="false">
         <MdFavorite size={32} className="me-4" />
         <span className="text">Favorites</span>
       </button>
 
-      <div class="collapse ms-4" id={`${name}-collapse`}>
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+      <div className="collapse ms-4" id={`${name}-collapse`}>
+        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           {/* {renderedData} */}
         </ul>
       </div>
@@ -69,7 +93,7 @@ export default function Sidebar() {
 
 
     <li className="mb-2">
-      <Link to="/create" class="sidebar-btn btn  d-inline-flex align-items-center rounded border-0 mb-2"
+      <Link to="/create" className="sidebar-btn btn  d-inline-flex align-items-center rounded border-0 mb-2"
         aria-expanded="false">
         <FaMapMarkerAlt size={32} className="me-4" />
         <span className="text">Create Landmark</span>
@@ -77,13 +101,10 @@ export default function Sidebar() {
     </li>
 
 
-    <li className="mb-2">
-      <Link to="/create" class="sidebar-btn btn  d-inline-flex align-items-center rounded border-0 mb-2"
-        aria-expanded="false">
-        <BsPersonCircle size={32} className="me-4" />
-        <span className="text">Profile</span>
-      </Link>
-    </li>
+    <div ref={modalRef} onClick={openProfileModal} className="d-flex justify-content-center" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Top popover" >
+      {isLoggedIn ? <img id="profile-image" src={isLoggedIn?._json?.picture}></img> :
+        <BsPersonCircle size={32} className="me-4" />}
+    </div>
 
   </div>)
 }

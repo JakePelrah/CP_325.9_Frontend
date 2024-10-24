@@ -29,3 +29,10 @@
   color: var(--sidebar-color-text) !important;
   font-size: 1.2em;
 }
+
+
+#profile-image{
+    clip-path: circle();
+    height: 4em;
+    width: 4em;
+}
