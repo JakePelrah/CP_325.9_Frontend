@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import * as Icons from "react-icons/gi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
-import { FaRoute } from "react-icons/fa";
 import { BsPersonCircle } from "react-icons/bs";
 
 import './sidebar.css'
@@ -44,10 +43,6 @@ export default function Sidebar() {
 
     <span className="brand text-center ms-3 my-3 d-flex align-items-center">Musical Landmarks </span>
 
-    {/* <form class="form-inline mx-3 mb-4 mt-4">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-    </form> */}
-
     <hr />
 
     <ul className="list-unstyled ps-0 mt-3 ms-4">
@@ -72,14 +67,6 @@ export default function Sidebar() {
       </div>
     </li>
 
-    <li className="mb-2">
-
-      <Link to="/trip" class="sidebar-btn btn btn-toggle d-inline-flex align-items-center rounded border-0"
-        aria-expanded="false">
-        <FaRoute size={32} className="me-4" />
-        <span className="text">Plan Trip</span>
-      </Link>
-    </li>
 
     <li className="mb-2">
       <Link to="/create" class="sidebar-btn btn  d-inline-flex align-items-center rounded border-0 mb-2"

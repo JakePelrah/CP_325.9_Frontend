@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client'
-import Home from './components/Home.jsx';
-import App from './App.jsx'
-import Create from './components/Create.jsx';
-import Trip from './components/Trip.jsx';
+import Home from './components/HomePage.jsx';
+import App from './MapPage.jsx'
+import Create from './components/CreatePage.jsx';
+import ErrorPage from './components/ErrorPage.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,7 +13,8 @@ import './index.css'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Home />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "map",
@@ -22,10 +23,6 @@ const router = createBrowserRouter([
   {
     path: "create",
     element: <Create />
-  },
-  {
-    path: "trip",
-    element: <Trip />
   }
 ]);
 
