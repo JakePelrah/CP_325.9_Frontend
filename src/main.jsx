@@ -3,6 +3,7 @@ import Home from './components/HomePage.jsx';
 import App from './MapPage.jsx'
 import Create from './components/CreatePage.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
+import LMProvider from './components/LMProvider.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -23,9 +24,11 @@ const router = createBrowserRouter([
   {
     path: "create",
     element: <Create />
-  }
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
+  <LMProvider>
   <RouterProvider router={router} />
+  </LMProvider>
 )
